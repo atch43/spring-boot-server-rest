@@ -1,0 +1,6 @@
+package it.project.server.mapper.object;
+
+@
+public interface PojoToModelI {
+	
+}

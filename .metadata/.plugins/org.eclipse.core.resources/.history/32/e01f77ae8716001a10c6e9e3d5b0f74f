@@ -1,0 +1,192 @@
+package it.project.server.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import it.project.server.mapper.object.ModelToPojoI;
+import it.project.server.mapper.object.PojoToModelI;
+import it.project.server.model.Session;
+import it.project.server.model.User;
+import it.project.server.pojo.Pagination;
+import it.project.server.security.CustomTokenHandler;
+import it.project.server.services.Tools;
+import it.project.server.services.UserIBLM;
+
+@RestController
+@RequestMapping("/users")
+@Scope("prototype")
+public class UsersController {
+
+	@Autowired
+	ModelToPojoI modelToPojo;
+
+	@Autowired
+	PojoToModelI pojoToModel;
+
+	@Autowired
+	CustomTokenHandler customTokenHandler;
+
+	@Autowired
+	UserIBLM userBLM;
+
+	@Autowired
+	Session session;
+	
+	
+
+	@Autowired
+	Tools tools;
+
+	public ModelToPojoI getModelToPojo() {
+		return modelToPojo;
+	}
+
+	public void setModelToPojo(ModelToPojoI modelToPojo) {
+		this.modelToPojo = modelToPojo;
+	}
+
+	public PojoToModelI getPojoToModel() {
+		return pojoToModel;
+	}
+
+	public void setPojoToModel(PojoToModelI pojoToModel) {
+		this.pojoToModel = pojoToModel;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	@GetMapping("/test")
+	@CrossOrigin("*")
+	void Test() {
+//		if (SecurityContextHolder.getContext().getAuthentication() != null) {
+//			try {
+//				if (SecurityContextHolder.getContext().getAuthentication() != null
+//						&& SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+//					String username = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+//							.getUsername();
+//					System.err.println(username);
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+		System.err.println(session.toString());
+	}
+
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	ResponseEntity<?> Login(@RequestBody User user) {
+
+		try {
+
+			user.setPassword(tools.EncodePassword(user.getPassword()));
+			it.project.server.pojo.User pojo = userBLM.checkUser(modelToPojo.convertAuthUser(user));
+
+			String token;
+			if (pojo.getId() != null) {
+				token = customTokenHandler.createTokenForUser(user);
+				session.setUsername(pojo.getUsername());
+				session.setPrivilegeId(pojo.getPrivilege().getId());
+				System.err.println("set:"+session.getPrivilegeId());
+			} else {
+				token = "";
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+
+			User u = pojoToModel.convertUser(pojo);
+			u.setToken(token);
+			
+			
+			return new ResponseEntity<User>(u, HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping(value = "/list/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
+	ResponseEntity<?> GetBasicUsers(@PathVariable("page") Integer page) {
+		System.err.println(session.getPrivilegeId());
+		if (session.getPrivilegeId() != 100)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+		List<it.project.server.pojo.User> list = new ArrayList<it.project.server.pojo.User>();
+
+		try {
+			
+			int nRows = userBLM.getUsersCount();
+			if (page == null)
+				page = 1;
+
+			Pagination p = new Pagination(5, nRows, page);
+			
+			list = userBLM.getBasicUsers(p.getRowBounds());
+
+			List<User> res = new ArrayList<User>();
+			res = pojoToModel.convertUsers(list);
+			return new ResponseEntity<List<User>>(res, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Integer>(0, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping(value = "/user/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+	ResponseEntity<?> getUser(@PathVariable("username") String username) {
+		if (session.getPrivilegeId() != 100 && session.getUsername() != username)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+		it.project.server.pojo.User user = new it.project.server.pojo.User();
+
+		try {
+			user = userBLM.getUserByUsername(username);
+			User res = new User();
+			res = pojoToModel.convertUser(user);
+			return new ResponseEntity<User>(res, HttpStatus.OK);
+
+		} catch (Exception e) {
+			return new ResponseEntity<Integer>(0, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping(value = "/logout")
+//	@CrossOrigin("*")
+	ResponseEntity<?> logout() {
+		SecurityContextHolder.getContext().setAuthentication(null);
+		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
+	ResponseEntity<?> getUsersCount() {
+		if (session.getPrivilegeId() != 100)
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+
+		try {
+			Integer res = userBLM.getUsersCount();
+			return new ResponseEntity<Integer>(res, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Integer>(0, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+}

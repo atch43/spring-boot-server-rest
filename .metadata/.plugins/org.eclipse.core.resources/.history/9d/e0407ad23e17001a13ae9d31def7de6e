@@ -1,0 +1,50 @@
+package it.project.server.services;
+
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.project.server.mapper.query.UserQuery;
+import it.project.server.model.UserSearch;
+import it.project.server.pojo.User;
+
+@Service
+public class UserBLM implements UserIBLM{
+	
+	@Autowired
+	UserQuery userQuery;
+	
+	@Override
+	public User checkUser(User user) {
+		User res = userQuery.checkUser(user);
+		return res;
+	}
+	
+	@Override
+	public List<User> getBasicUsers(RowBounds rowBounds) {
+		List<User> res = userQuery.getBasicUsers(rowBounds);
+		return res;
+	}
+	
+	@Override
+	public User getUserByUsername(String username) {
+		User res = userQuery.getUserByUsername(username);
+		return res;
+	}
+	
+	@Override
+	public Integer getUsersCount() {
+		return userQuery.getUsersCount();
+	}
+	
+	@Override
+	public Integer getUsersByKeyword(UserSearch search) {
+		return userQuery.getUsersByKeyword(search);
+	}
+	
+	
+	
+	
+}

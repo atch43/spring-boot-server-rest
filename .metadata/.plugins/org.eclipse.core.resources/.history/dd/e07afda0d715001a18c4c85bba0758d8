@@ -1,0 +1,71 @@
+package it.boot.client.security;
+
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import it.boot.client.client.IInvoiceWS;
+import it.boot.client.client.InvoiceWSService;
+import it.boot.client.mappers.object.ClientToModel;
+import it.boot.client.model.AuthUser;
+
+@Service("customTokenHandler")
+public class CustomTokenHandler {
+
+
+	@Autowired
+	UserIBLM userBLM;
+
+	public CustomTokenHandler() {
+    }
+
+    public it.project.server.model.AuthUser parseUserFromToken(String token) {
+        String email = Jwts.parser()
+                .setSigningKey(SecurityConstants.JWT_SECRET)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+
+		AuthUser res =  clientToModel.convertAuthUser(port.getUserByEmail(email));
+        
+//        res.setPrivileges(blmUser.getUserPrivilegesByEmail(email));
+        return res;
+    }
+
+    public String createTokenForUser(AuthUser user) {
+    	try {
+        return Jwts.builder()
+                .setHeaderParam("typ", SecurityConstants.TOKEN_TYPE)
+                .setIssuer(SecurityConstants.TOKEN_ISSUER)
+                .setAudience(SecurityConstants.TOKEN_AUDIENCE)
+                .setSubject(user.getEmail())
+                .setExpiration(new Date(System.currentTimeMillis() + 864000000))
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.JWT_SECRET)
+                .compact();
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    		return "";
+    	}
+    }
+    
+    public boolean validateToken(String token) {
+    	 try {
+    	       Jws<Claims> jwt = Jwts.parser() 
+    	                .setSigningKey(SecurityConstants.JWT_SECRET)
+    	                .parseClaimsJws(token);
+    	       return true;
+
+    	    } catch (SignatureException e) {
+    	        e.printStackTrace();
+    	        return false;
+    	     }
+    }
+}

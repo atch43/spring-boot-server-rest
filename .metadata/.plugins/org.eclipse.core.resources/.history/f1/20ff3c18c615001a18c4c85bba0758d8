@@ -1,0 +1,24 @@
+package it.project.server.mapper.object;
+
+import it.project.server.model.Privilege;
+import it.project.server.model.User;
+
+public class PojoToModel implements PojoToModelI {
+
+	@Override
+	public it.project.server.model.User convertUser(it.project.server.pojo.User pojo) {
+		it.project.server.model.User model = new it.project.server.model.User();
+		model.setId(pojo.getId());
+		model.setNome(pojo.getNome());
+		model.setCognome(pojo.getCognome());
+		model.setPassword(pojo.getPassword());
+		model.setPrivilege(convertPrivilege(pojo.getPrivilege()));
+	}
+
+	@Override
+	public it.project.server.model.Privilege convertPrivilege(it.project.server.pojo.Privilege pojo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

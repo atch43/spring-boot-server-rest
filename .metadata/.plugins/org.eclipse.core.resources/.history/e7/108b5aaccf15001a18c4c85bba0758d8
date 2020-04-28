@@ -1,0 +1,41 @@
+package it.project.server.mapper.object;
+
+import java.util.List;
+
+import it.project.server.model.Privilege;
+import it.project.server.pojo.Address;
+import it.project.server.pojo.User;
+
+public class ModelToPojo implements ModelToPojoI {
+
+	@Override
+	public User convertUser(it.project.server.model.User pojo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> convertUsers(List<it.project.server.model.User> pojo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Privilege convertPrivilege(it.project.server.pojo.Privilege pojo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Address convertAddress(it.project.server.model.Address pojo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Address> convertAddresses(List<it.project.server.model.Address> pojo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

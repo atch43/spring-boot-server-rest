@@ -1,0 +1,8 @@
+package it.project.server.services;
+
+public class UserBLM implements UserIBLM{
+	@Override
+	public User checkUser(User user) {
+		
+	}
+}

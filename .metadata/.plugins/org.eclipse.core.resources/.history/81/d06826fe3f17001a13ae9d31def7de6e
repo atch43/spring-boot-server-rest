@@ -1,0 +1,27 @@
+package it.project.server.services;
+
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.stereotype.Service;
+
+import it.project.server.model.UserSearch;
+import it.project.server.pojo.User;
+
+
+public interface UserIBLM {
+	User checkUser(User user);
+
+	List<User> getBasicUsers(RowBounds rowBounds);
+
+	User getUserByUsername(String username);
+	
+	Integer getUsersCount();
+	
+	Integer getUsersCountByKeyword(UserSearch search);
+
+	List<User> getUsersByKeyword(RowBounds rowBounds, UserSearch search);
+
+	List<User> getUsersByField(RowBounds rowBounds, UserSearch search);
+
+}

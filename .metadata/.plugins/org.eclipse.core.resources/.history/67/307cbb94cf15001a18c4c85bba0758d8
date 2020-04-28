@@ -1,0 +1,17 @@
+package it.project.server.mapper.object;
+
+import java.util.List;
+
+import it.project.server.pojo.Address;
+import it.project.server.pojo.User;
+
+public interface ModelToPojoI {
+	public it.project.server.model.User convertUser(it.project.server.pojo.User pojo);
+	public List<User> convertUsers(List<it.project.server.pojo.User> pojo);
+
+	public it.project.server.model.Privilege convertPrivilege(it.project.server.pojo.Privilege pojo);
+
+	public Address convertAddress(it.project.server.pojo.Address pojo);
+	public List<Address> convertAddresses(List<it.project.server.pojo.Address> pojo);
+
+}

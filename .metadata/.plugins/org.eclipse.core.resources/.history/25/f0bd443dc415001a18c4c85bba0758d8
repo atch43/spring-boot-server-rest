@@ -1,0 +1,26 @@
+package it.project.server.model;
+
+
+import java.util.ArrayList;
+
+public class Privilege {
+	
+	private Integer id;
+
+	private String nome;
+
+	private String cognome;
+
+	private String username;
+	
+	private String password;
+	
+	private String sesso;
+	
+	private String telefono;
+	
+	private Privilege privilege;
+	
+	private Long dob;
+
+}

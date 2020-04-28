@@ -1,0 +1,10 @@
+package it.project.server.mapper.object;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public interface PojoToModelI {
+	public it.project.server.model.User convertUser(it.project.server.pojo.User pojo);
+	
+	public it.project.server.model.Privilege convertPrivilege(it.project.server.pojo.Privilege pojo);
+}

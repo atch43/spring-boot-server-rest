@@ -1,0 +1,10 @@
+package it.project.server.services;
+
+import org.springframework.stereotype.Service;
+
+import it.project.server.pojo.User;
+
+@Service
+public interface UserIBLM {
+	User checkUser(User);
+}

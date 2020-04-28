@@ -1,0 +1,194 @@
+
+import java.util.ArrayList;
+
+public class User {
+	private Integer id;
+
+	private String name;
+
+	private String username;
+
+	private String password;
+
+	private String email;
+
+	private String privilege;
+
+	private Integer privilegeId;
+
+	private Long lastAccess;
+
+	private Long joinDate;
+
+	private Boolean active;
+
+	private Boolean rememberMe;
+
+	private Boolean setup;
+
+	private Integer security_question_ID;
+	private String security_answer;
+
+	private String token;
+	private Integer month;
+
+	private ArrayList<Privilege> privileges;
+
+	public User() {
+		super();
+	}
+
+	public User(Integer id, String name, String username, String pwd, String email, Integer privilege_ID,
+			Long last_access, Long join_date) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.password = pwd;
+		this.email = email;
+		this.privilegeId = privilege_ID;
+		this.lastAccess = last_access;
+		this.joinDate = join_date;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getPrivilegeId() {
+		return privilegeId;
+	}
+
+	public void setPrivilegeId(Integer privilege_ID) {
+		this.privilegeId = privilege_ID;
+	}
+
+	public String getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public Long getLastAccess() {
+		return lastAccess;
+	}
+
+	public void setLastAccess(Long last_access) {
+		this.lastAccess = last_access;
+	}
+
+	public Long getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Long join_date) {
+		this.joinDate = join_date;
+	}
+
+	public Boolean getRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(Boolean remember_me) {
+		this.rememberMe = remember_me;
+	}
+
+	@Override
+	public String toString() {
+		return "user: " + this.email;
+	}
+
+	public Boolean getSetup() {
+		return setup;
+	}
+
+	public void setSetup(Boolean setup) {
+		this.setup = setup;
+	}
+
+	public ArrayList<Privilege> getPrivileges() {
+		return this.privileges;
+	}
+
+	public void setPrivileges(ArrayList<Privilege> privileges) {
+		this.privileges = privileges;
+	}
+
+	public String getSecurity_answer() {
+		return security_answer;
+	}
+
+	public void setSecurity_answer(String security_answer) {
+		this.security_answer = security_answer;
+	}
+
+	public Integer getSecurity_question_ID() {
+		return security_question_ID;
+	}
+
+	public void setSecurity_question_ID(Integer security_question_ID) {
+		this.security_question_ID = security_question_ID;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+}

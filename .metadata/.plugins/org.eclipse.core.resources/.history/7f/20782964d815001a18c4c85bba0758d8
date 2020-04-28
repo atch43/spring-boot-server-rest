@@ -1,0 +1,174 @@
+package it.project.server.model;
+
+
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
+import it.project.server.enums.Sesso;
+
+public class User implements Authentication {
+	
+	private Integer id;
+
+	private String nome;
+
+	private String cognome;
+
+	private String username;
+	
+	private String password;
+	
+	//readonly
+	private Integer eta;
+	
+	private Sesso sesso;
+	
+	private String telefono;
+	
+	private Privilege privilege;
+	
+	private Long dob;
+
+	private List<Address> addresses;
+	
+	
+	
+	public Integer getEta() {
+		return eta;
+	}
+	
+	public void setEta(Integer eta) {
+		this.eta = eta;
+	}
+	
+	public User() {
+		
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Sesso getSesso() {
+		return sesso;
+	}
+
+	public void setSesso(Sesso sesso) {
+		this.sesso = sesso;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public Privilege getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(Privilege privilege) {
+		this.privilege = privilege;
+	}
+
+	public Long getDob() {
+		return dob;
+	}
+
+	public void setDob(Long dob) {
+		this.dob = dob;
+	}
+	
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getCredentials() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getPrincipal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAuthenticated() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+}

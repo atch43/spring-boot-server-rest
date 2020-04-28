@@ -1,0 +1,21 @@
+package it.project.server.mapper.object;
+
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import it.project.server.model.Address;
+import it.project.server.model.User;
+
+@Component
+public interface PojoToModelI {
+	public it.project.server.model.User convertUser(it.project.server.pojo.User pojo);
+	
+	public it.project.server.model.Privilege convertPrivilege(it.project.server.pojo.Privilege pojo);
+
+	Address convertAddress(it.project.server.pojo.Address pojo);
+
+	List<Address> convertAddresses(List<it.project.server.pojo.Address> pojo);
+
+	List<User> convertUsers(List<it.project.server.pojo.User> pojo);
+}

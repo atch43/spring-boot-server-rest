@@ -1,0 +1,13 @@
+package it.project.server.model;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
+import it.project.server.enums.Sesso;
+
+public class Session {
+	
+}

@@ -1,0 +1,47 @@
+package it.project.server.mapper.object;
+
+import it.project.server.model.Privilege;
+import it.project.server.model.User;
+
+public class PojoToModel implements PojoToModelI {
+
+	@Override
+	public it.project.server.model.User convertUser(it.project.server.pojo.User pojo) {
+		it.project.server.model.User model = new it.project.server.model.User();
+		model.setId(pojo.getId());
+		model.setNome(pojo.getNome());
+		model.setCognome(pojo.getCognome());
+		model.setPassword(pojo.getPassword());
+		
+		model.setPrivilege(convertPrivilege(pojo.getPrivilege()));
+		
+		model.setSesso(pojo.getSesso());
+	}
+
+	@Override
+	public it.project.server.model.Privilege convertPrivilege(it.project.server.pojo.Privilege pojo) {
+		it.project.server.model.Privilege model = new it.project.server.model.Privilege();
+		model.setId(pojo.getId());
+		model.setPrivilege(pojo.getPrivilege());
+		
+		return model;
+	}
+	
+	@Override
+	public it.project.server.model.Address convertAddress(it.project.server.pojo.Address pojo) {
+		it.project.server.model.Address model = new it.project.server.model.Address();
+		
+		model.setId(pojo.getId());
+		model.setVia(pojo.getVia());
+		model.setCivico(pojo.getCivico());
+		model.setCAP(pojo.getCAP());
+		model.setResidenza(pojo.getResidenza());
+		model.setUserId(pojo.getUserId());
+		
+		model.setSesso(pojo.getSesso());
+	}
+
+	
+	
+	
+}

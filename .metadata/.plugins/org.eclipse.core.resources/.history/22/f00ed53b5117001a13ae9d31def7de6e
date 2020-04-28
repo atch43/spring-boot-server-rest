@@ -1,0 +1,41 @@
+package it.project.server.model;
+
+import java.util.List;
+
+public class Page<T> {
+	
+	private Integer currentPage;
+	private Integer totalPages;
+	private List<T> list;
+
+	public List<T> getList() {
+		return list;
+	}
+	public void setList(List<T> list) {
+		this.list = list;
+	}
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
+	}
+	public Integer getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
+	}
+	
+	public Page() {
+		
+	}
+	
+	public Page(Integer currentPage, Integer nRows, Integer totalPages, List<T> list) {
+		this.currentPage = currentPage;
+		this.totalPages = totalPages;
+		this.nRows = nRows;
+		this.list = list;
+	}
+	
+}

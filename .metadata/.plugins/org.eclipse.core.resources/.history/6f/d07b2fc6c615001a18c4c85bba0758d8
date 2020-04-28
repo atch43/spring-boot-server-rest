@@ -1,0 +1,23 @@
+package it.project.server.enums;
+
+public enum Sesso {
+	MASCHIO("M", "Maschio"),
+	FEMMINA("F", "Femmina"),
+	NA("NA", "Preferisco non rispondere");
+	private final String code;
+	private final String description;
+	
+	private Sesso(String code, String description){
+		this.code = code;
+		this.description = description;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	
+}

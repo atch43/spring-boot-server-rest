@@ -1,0 +1,23 @@
+package it.project.server.mapper.query;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import it.project.server.pojo.User;
+
+@Mapper
+public interface UserQuery {
+	@Select("SELECT * FROM users"
+			+ "INNER JOIN ")
+	User checkUser(User user);
+	
+	@Select("SELECT * FROM users "
+			+ "WHERE username = #{user.username} "
+			+ "and password = #{user.password} "
+			+ "and privilege_id = 10")
+	List<User> getBasicUsers();
+	
+	
+}

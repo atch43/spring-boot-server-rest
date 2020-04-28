@@ -1,0 +1,8 @@
+package it.project.server.services;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public interface UserIBLM {
+
+}

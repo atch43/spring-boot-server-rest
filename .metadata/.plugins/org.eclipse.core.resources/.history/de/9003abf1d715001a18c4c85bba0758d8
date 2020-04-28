@@ -1,0 +1,27 @@
+package it.project.server.mapper.query;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+
+import it.project.server.pojo.User;
+
+@Mapper
+public interface UserQuery {
+	
+	@Results({ @Result(column = "privilegeId", property = "privilege.id"),
+		@Result(column = "privilege", property = "privilege.privilege") })
+	@Select("SELECT users.*, user_privileges.id privilegeId, user_privileges.privilege FROM users"
+			+ "INNER JOIN user_privileges on user_privileges.id = users.privilege_id")
+	User checkUser(User user);
+	
+	@Select("SELECT *, TIMESTAMPDIFF(YEAR, FROM_UNIXTIME(dob/1000,'%Y-%m-%d'), CURDATE()) eta FROM users WHERE privilege_id = 10")
+	List<User> getBasicUsers();
+	
+	@Select("SELECT * FROM users where username = #{username} LIMIT 0,1)
+	User getUserByUsername(String username);
+		
+}

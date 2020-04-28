@@ -1,0 +1,5 @@
+package it.project.server.services;
+
+public class UserBLM implements UserIBLM{
+
+}

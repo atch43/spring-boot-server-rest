@@ -1,0 +1,61 @@
+package it.project.server.mapper.query;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.session.RowBounds;
+
+import it.project.server.model.UserSearch;
+import it.project.server.pojo.User;
+
+@Mapper
+public interface UserQuery {
+	
+	@Results({ @Result(column = "privilegeId", property = "privilege.id"),
+		@Result(column = "privilege", property = "privilege.privilege") })
+	@Select("SELECT users.*, user_privileges.id privilegeId, user_privileges.privilege FROM users "
+			+ "INNER JOIN user_privileges on user_privileges.id = users.privilege_id "
+			+ "WHERE username = #{username} and password = #{password}")
+	User checkUser(User user);
+	
+	@Select("SELECT *, TIMESTAMPDIFF(YEAR, FROM_UNIXTIME(dob/1000,'%Y-%m-%d'), CURDATE()) eta FROM users WHERE privilege_id = 10")
+	List<User> getBasicUsers(RowBounds rowBounds);
+	
+	@Results({ @Result(column = "privilegeId", property = "privilege.id"),
+		@Result(column = "privilege", property = "privilege.privilege") })
+	@Select("SELECT * FROM users where username = #{username} "
+			+ "INNER JOIN user_privileges on user_privileges.id = users.privilege_id "
+			+ "LIMIT 0,1")
+	User getUserByUsername(String username);
+	
+	@Select("SELECT count(id) res FROM users")
+	Integer getUsersCount();
+	
+	@Select("SELECT count(id) FROM users "
+			+ "WHERE id LIKE '%' #{id} '%' "
+			+ "and username LIKE '%' #{username} '%' "
+			+ "and CONCAT(nome,' ', cognome) LIKE '%' #{nominativo} '%' ")
+	Integer getUsersCountByField(UserSearch search);
+	
+	@Select("SELECT * FROM users "
+			+ "WHERE id LIKE '%' #{id} '%' "
+			+ "and username LIKE '%' #{username} '%' "
+			+ "and CONCAT(nome,' ', cognome) LIKE '%' #{nominativo} '%' "
+			+ "ORDER BY ${sortBy} ${sort}")
+	List<User> getUsersByField(RowBounds rowBounds, UserSearch search);
+	
+	@Select("SELECT * FROM users "
+			+ "WHERE id LIKE '%' #{search} '%' "
+			+ "OR username LIKE '%' #{search} '%' "
+			+ "OR CONCAT(nome,' ', cognome) LIKE '%' #{search} '%'")
+	List<User> getUsersByKeyword(RowBounds rowBounds, String search);
+	
+	@Select("SELECT count(id) FROM users "
+			+ "WHERE id LIKE '%' #{search} '%' "
+			+ "OR username LIKE '%' #{search} '%' "
+			+ "OR CONCAT(nome,' ', cognome) LIKE '%' #{search} '%'")
+	Integer getUsersCountByKeyword(String search);
+}

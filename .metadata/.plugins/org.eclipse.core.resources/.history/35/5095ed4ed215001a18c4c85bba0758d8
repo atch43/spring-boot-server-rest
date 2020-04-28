@@ -1,0 +1,26 @@
+package it.project.server.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import it.project.server.mapper.query.UserQuery;
+import it.project.server.pojo.User;
+
+public class UserBLM implements UserIBLM{
+	
+	@Autowired
+	UserQuery userQuery;
+	
+	@Override
+	public User checkUser(User user) {
+		User res = userQuery.checkUser(user);
+		return res;
+	}
+	
+	@Override
+	public List<User> getBasicUsers() {
+		User res = userQuery.getBasicUsers();
+		return res;
+	}
+	
+	
+}

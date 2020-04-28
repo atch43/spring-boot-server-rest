@@ -1,0 +1,148 @@
+package it.project.server.model;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
+public class AuthUser implements Authentication
+{  
+	private static final long serialVersionUID = 1723637171422557473L;
+
+	private Integer id;
+	
+	private String email;
+ 
+    private String password;
+    
+    private String token;
+	
+	private List<Privilege> privileges;
+	
+	
+	
+	private Integer security_question_ID;
+	private String security_answer;
+	private Integer month;
+	private String confirm_password;
+	private Boolean setup;
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public String getConfirm_password() {
+		return confirm_password;
+	}
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
+	}
+	
+	public Boolean getSetup() {
+		return setup;
+	}
+	public void setSetup(Boolean setup) {
+		this.setup = setup;
+	}
+	
+	public Integer getSecurity_question_ID() {
+		return security_question_ID;
+	}
+	public void setSecurity_question_ID(Integer security_question_ID) {
+		this.security_question_ID = security_question_ID;
+	}
+	public String getSecurity_answer() {
+		return security_answer;
+	}
+	public void setSecurity_answer(String security_answer) {
+		this.security_answer = security_answer;
+	}
+	public Integer getMonth() {
+		return month;
+	}
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public AuthUser() {
+		
+	}
+	public AuthUser(String email, String password, String token){
+		this.email = email;
+		this.password = password;
+		this.token = token;
+	}
+	
+	public AuthUser(String email, List<Privilege> privileges, String token, Boolean setup){
+		this.email = email;
+		this.privileges = privileges;
+		this.token = token;
+		this.setup = setup;
+	}
+	
+
+    public String getEmail() {
+		return email;
+	}
+    public void setEmail(String email) {
+		this.email = email;
+	}
+    
+    public String getPassword() {
+		return password;
+	}
+    public void setPassword(String password) {
+		this.password = password;
+	}
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Object getCredentials() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Object getDetails() {
+		// TODO Auto-generated method stub
+		return this.getName();
+	}
+	@Override
+	public Object getPrincipal() {
+		return this.email;
+	}
+	@Override
+	public boolean isAuthenticated() {
+		return false;
+	}
+	@Override
+	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+		
+	}
+	
+	public List<Privilege> getPrivileges() {
+		return privileges;
+	}
+	public void setPrivileges(List<Privilege> privileges) {
+		this.privileges = privileges;
+	}
+    
+}

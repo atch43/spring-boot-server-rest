@@ -1,0 +1,38 @@
+package it.project.server.model;
+
+public class UserSearch {
+	private String id;
+	private String username;
+	private String nominativo;
+	
+	public UserSearch() {
+		id = "";
+		username = "";
+		nominativo = "";
+	}
+	
+	public UserSearch(String id2, String username2, String nominativo2) {
+		id = id2!=null?id2:"";
+		id = username!=null?username:"";
+		id = nominativo!=null?nominativo2:"";
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getNominativo() {
+		return nominativo;
+	}
+	public void setName(String nominativo) {
+		this.nominativo = nominativo;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+}

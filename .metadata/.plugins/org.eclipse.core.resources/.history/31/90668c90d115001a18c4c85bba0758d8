@@ -1,0 +1,10 @@
+package it.project.server.services;
+
+import it.project.server.pojo.User;
+
+public class UserBLM implements UserIBLM{
+	@Override
+	public User checkUser(User user) {
+		return new User();
+	}
+}

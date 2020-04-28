@@ -1,0 +1,22 @@
+package it.project.server.enums;
+
+public enum Sesso {
+	AA(1, "Perizia"),
+	BB(2, "Perizia");
+	private final String code;
+	private final String description;
+	
+	private Sesso(String description){
+		this.code = code;
+		this.description = description;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+	
+}

@@ -1,0 +1,73 @@
+package it.project.server.model;
+
+
+import java.util.ArrayList;
+
+public class Address {
+	
+	private Integer id;
+	
+	private Integer userId;
+
+	private String CAP;
+	
+	private String via;
+	
+	private String civico;
+	
+	private Boolean residenza;
+	
+	public Address() {
+		
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getCAP() {
+		return CAP;
+	}
+
+	public void setCAP(String cAP) {
+		CAP = cAP;
+	}
+
+	public String getVia() {
+		return via;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
+	}
+
+	public String getCivico() {
+		return civico;
+	}
+
+	public void setCivico(String civico) {
+		this.civico = civico;
+	}
+
+	public Boolean getResidenza() {
+		return residenza;
+	}
+
+	public void setResidenza(Boolean residenza) {
+		this.residenza = residenza;
+	}
+
+	
+}

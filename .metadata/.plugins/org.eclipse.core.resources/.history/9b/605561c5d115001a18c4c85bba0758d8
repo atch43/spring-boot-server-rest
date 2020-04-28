@@ -1,0 +1,9 @@
+package it.project.server.mapper.query;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+@Mapper
+public interface UserQuery {
+	@Select("SELECT * FROM users WHERE username = #{username} and password = #{password}")
+}

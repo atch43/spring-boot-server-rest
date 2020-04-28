@@ -1,0 +1,18 @@
+package it.project.server.services;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import it.project.server.pojo.User;
+
+
+public interface UserIBLM {
+	User checkUser(User user);
+
+	List<User> getBasicUsers();
+
+	User getUserByUsername();
+
+	User getUserByUsername(String username);
+}

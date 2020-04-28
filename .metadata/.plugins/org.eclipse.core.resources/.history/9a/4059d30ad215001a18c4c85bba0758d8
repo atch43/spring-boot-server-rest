@@ -1,0 +1,12 @@
+package it.project.server.mapper.query;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import it.project.server.pojo.User;
+
+@Mapper
+public interface UserQuery {
+	@Select("SELECT * FROM users WHERE username = #{user.username} and password = #{user.password}")
+	User checkUser(User user);
+}

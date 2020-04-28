@@ -1,0 +1,28 @@
+package it.project.server.security;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Service;
+
+import it.boot.client.model.AuthUser;
+
+@Service("customTokenAuthenticationService")
+public class CustomTokenAuthenticationService {
+
+	private static final String AUTH_HEADER_NAME = "Authorization";
+
+	private final CustomTokenHandler tokenHandler;
+
+	public CustomTokenAuthenticationService() {
+		tokenHandler = new CustomTokenHandler();
+	}
+
+	public void addAuthentication(HttpServletResponse response, AuthUser user) {
+		try {
+			response.addHeader(AUTH_HEADER_NAME, tokenHandler.createTokenForUser(user));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}
